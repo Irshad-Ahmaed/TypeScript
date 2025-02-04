@@ -272,3 +272,131 @@ console.log(prod)
 // Enum is a way to define a set of named constants. Enums allow
 // you to define a collection of related values that can be used
 // interchangeably in your code.
+
+// enum WeatherConditions {
+//     Sunny,
+//     Cloudy,
+//     Rainy,
+//     Snowy,
+//     Windy
+// };
+// console.log(`Todays weather is ${WeatherConditions[1]}`);
+
+enum WeatherConditions {
+    Sunny = 'sunny',
+    Cloudy = 'cloudy',
+    Rainy = 'rainy',
+    Snowy = 'snowy',
+    Windy = 'windy',
+};
+
+console.log(`Todays weather is ${WeatherConditions.Cloudy.toUpperCase()} coming from Enum`);
+
+// -------------------------------- Class Prop And Annotations -------------------------------
+// You can annotate class properties with a type. This allows you to define the
+// data type of the property and ensure that it is always consistent.
+
+class PersonClass {
+    name: string;
+    age: number;
+
+    constructor(name: string, age: number){
+        this.name = name;
+        this.age = age;
+    }
+}
+
+const providingPerson = new PersonClass("Irshad", 23);
+console.log('Coming from class: ', providingPerson.name, providingPerson.age);
+
+// -------------------- Access Modifier --------------------------- 
+// In TypeScript, you can use access modifiers to control the visibility
+// of class members (properties and methods). Access modifiers determine the 
+// ways in which class members can be accessed from within and outside the class.
+
+// We have 3 types of Modifier in TypeScript:
+// 1. Public 
+// Public: Members marked as public can be accessed from anywhere, 
+// both inside and outside the class.
+
+// 2. Private 
+// Private: Members marked as private can only be accessed 
+// from within the class they are defined in.
+
+// 3. Protected
+// Protected: Members marked as protected can be accessed from within the class 
+// they are defined in, as well as any subclasses that extend the class.
+
+class Animal {
+    public name: string;
+    private age: number;
+    protected species: string;
+
+    constructor(name: string, age: number, species: string) {
+        this.name = name;
+        this.age = age;
+        this.species = species;
+    }
+
+    getDetails(): string {
+        return `Animal is ${this.name}, age is ${this.age}, and its species is ${this.species}`;
+    }
+}
+
+class animalData extends Animal {
+    public breed: string;
+    public animal: string;
+
+    constructor(name: string, animal:string , age: number, species: string, breed: string) {
+        super(name, age, species);
+        this.animal = animal;
+        this.breed = breed;
+    }
+
+    getAnimalDetails(): string { // Age is not accessible here because it is Private
+        // return `Dog is ${this.name}, age is ${this.age}, species is ${this.species}, and breed is ${this.breed}`;
+        return `${this.name} is ${this.animal}, species is ${this.species}, and breed is ${this.breed}`;
+    }
+}
+
+const myDog = new animalData('Buddy', 'Dog', 3, 'Canine', 'Golden Retriever');
+console.log(myDog.getAnimalDetails());
+
+
+// const animalData = new Animal("Cat", 3, "Persian")
+
+// console.log(animalData.name); // name can be accessible because it is public
+// console.log(animalData.age); // age is private can't access outside of class
+// console.log(animalData.species); // species is protected can't access outside of class and its subclass
+// console.log(animalData.getDetails()); // But we can access the details with method
+
+// const Cat = new subAnimal('Irshad', 'Jack', 'Cat', 4, 'Persian');
+// console.log(Cat);
+
+// ------------------------- Getter And Setters -----------------------------
+// Getters and setters are used to access and modify class properties.
+// Getters and setters allow you to define a property in a class that 
+// looks like a simple variable from the outside but internally has
+// additional logic for getting and setting the value.
+
+class MyClass {
+    private _myProperty: number = 0;
+
+    get myProperty(): number {
+        return this._myProperty;
+    }
+
+    set myProperty(value: number) {
+        this._myProperty = value;
+    }
+}
+
+const value = new MyClass();
+value.myProperty = 2; // Initialize the value
+console.log(`My value is ${value.myProperty}`) // get the value
+
+// ----------------------------- Interfaces -------------------------
+// Interface is a way to define a contract for the shape of an object. 
+// It specifies the properties and their types that an object must have.
+// Interfaces are a powerful tool for enforcing a certain structure in your code.
+
